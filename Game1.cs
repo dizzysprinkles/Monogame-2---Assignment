@@ -109,7 +109,7 @@ namespace Monogame_2___Assignment
                 }
 
             }
-            else if (screenState == ScreenState.MainScreen)  // Need ending condition...
+            else if (screenState == ScreenState.MainScreen)
             {
                 if (seconds > respawnTime)
                 {
@@ -131,12 +131,12 @@ namespace Monogame_2___Assignment
                             if (clicks % 2 != 0)
                             {
                                 badgerTextures[i] = mushroomTextures[i];
-                                score += 10;
+                                score += 10;  //NEED TO CHANGE SCORE AMOUNT
                             }
                             //Removes
                             else if (clicks % 2 == 0)
                             {
-                                score += 20;
+                                score += 20; //NEED TO CHANGE SCORE AMOUNT
                                 badgerTextures.RemoveAt(i);
                                 badgerRects.RemoveAt(i);
                                 mushroomTextures.RemoveAt(i);
@@ -147,7 +147,7 @@ namespace Monogame_2___Assignment
                     }
                 }
 
-                if (score >= 100)
+                if (score >= 100)  // NEED TO CHANGE ENDING CONDITION
                 {
                     screenState = ScreenState.EndScreen;
                 }
