@@ -20,6 +20,9 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/InstructionFont.spritefont
 
+#begin Fonts/NewClass.ttf
+/copy:Fonts/NewClass.ttf
+
 #begin Fonts/ScoreFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -29,9 +32,6 @@
 
 #begin Fonts/SuperCartoon.ttf
 /copy:Fonts/SuperCartoon.ttf
-
-#begin Fonts/TooSweet.otf
-/copy:Fonts/TooSweet.otf
 
 #begin Images/badger.png
 /importer:TextureImporter
@@ -56,6 +56,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/fieldBackground.jpg
+
+#begin Images/grayBackground.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/grayBackground.jpg
 
 #begin Images/greenBackground.jpg
 /importer:TextureImporter

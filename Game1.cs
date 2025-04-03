@@ -22,18 +22,20 @@ namespace Monogame_2___Assignment
         private SpriteBatch _spriteBatch;
 
         ScreenState screenState;
-        SpriteFont instructionFont;
+        SpriteFont instructionFont, scoreFont;
         MouseState mouseState, previousMouseState;
         KeyboardState keyboardState;
         List<Texture2D> mushroomLoad, mushroomTextures, badgerTextures;
         List<Rectangle> badgerRects;
         Random generator;
         float seconds, respawnTime;
-        int score;
+        int score, clicks;
 
 
         Rectangle window;
-        Texture2D titleBackgroundTexture, fieldBackgroundTexture, badgerTexture;
+        Texture2D titleBackgroundTexture, fieldBackgroundTexture, badgerTexture, endBackgroundTexture;
+
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -47,6 +49,7 @@ namespace Monogame_2___Assignment
             generator = new Random();
 
             score = 0;
+            clicks = 0;
 
             mushroomLoad = new List<Texture2D>();
             badgerRects = new List<Rectangle>();
@@ -59,7 +62,7 @@ namespace Monogame_2___Assignment
                 badgerRects.Add(new Rectangle(generator.Next(window.Width - 100), generator.Next(250, 350), 100, 100)); //Need to check for collision with other rectangles...
                 
             }
-            respawnTime = 6f;
+            respawnTime = 2.5f;
             seconds = 0f;
             base.Initialize();
         }
@@ -69,9 +72,11 @@ namespace Monogame_2___Assignment
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             instructionFont = Content.Load<SpriteFont>("Fonts/InstructionFont");
+            scoreFont = Content.Load<SpriteFont>("Fonts/ScoreFont");
             titleBackgroundTexture = Content.Load<Texture2D>("Images/greenBackground");
             fieldBackgroundTexture = Content.Load<Texture2D>("Images/fieldBackground");
             badgerTexture = Content.Load<Texture2D>("Images/badger");
+            endBackgroundTexture = Content.Load<Texture2D>("Images/grayBackground");
 
 
             for (int i = 0; i < badgerRects.Count; i++)
@@ -104,28 +109,57 @@ namespace Monogame_2___Assignment
                 }
 
             }
-            else if (screenState == ScreenState.MainScreen)
+            else if (screenState == ScreenState.MainScreen)  // Need ending condition...
             {
                 if (seconds > respawnTime)
                 {
                     mushroomTextures.Add(mushroomLoad[generator.Next(mushroomLoad.Count)]);
                     badgerTextures.Add(badgerTexture);
-                    badgerRects.Add(new Rectangle(generator.Next(window.Width - 10), generator.Next(250, 350), 100, 100));
+                    badgerRects.Add(new Rectangle(generator.Next(window.Width - 100), generator.Next(250, 350), 100, 100));
                     seconds = 0f; // Restarts timer
                 }
                 if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
                 {
+                    //Mouse Check - Badger Rects
                     for (int i = 0; i < badgerRects.Count; i++)
                     {
                         if (badgerRects[i].Contains(mouseState.Position))
                         {
-                            badgerTextures[i] = mushroomTextures[i];
-                            score += 10;
+                            clicks += 1;
+
+                            //Changes to mushroom
+                            if (clicks % 2 != 0)
+                            {
+                                badgerTextures[i] = mushroomTextures[i];
+                                score += 10;
+                            }
+                            //Removes
+                            else if (clicks % 2 == 0)
+                            {
+                                score += 20;
+                                badgerTextures.RemoveAt(i);
+                                badgerRects.RemoveAt(i);
+                                mushroomTextures.RemoveAt(i);
+                                i--;
+
+                            }
 
                         }
 
                     }
                 }
+
+                if (score >= 100)
+                {
+                    screenState = ScreenState.EndScreen;
+                }
+            }
+            else if (screenState == ScreenState.EndScreen)
+            {
+                score = 0;
+
+
+                
             }
 
             previousMouseState = mouseState;
@@ -140,6 +174,7 @@ namespace Monogame_2___Assignment
                 _spriteBatch.Draw(titleBackgroundTexture, window, Color.White);
                 _spriteBatch.DrawString(instructionFont, "Need to put actual instructions \nhere... Testing...", new Vector2(100, 50), Color.DarkBlue);
                 _spriteBatch.DrawString(instructionFont, "Press ENTER to continue", new Vector2(150, 400), Color.Brown);
+                _spriteBatch.DrawString(scoreFont, "By Zoey Hamm", new Vector2(300, 450), Color.Indigo);
             }
             else if (screenState == ScreenState.MainScreen)
             {
@@ -147,11 +182,18 @@ namespace Monogame_2___Assignment
 
                 for (int i = 0; i < badgerRects.Count; i++)
                 {
-                    _spriteBatch.Draw(badgerTextures[i], badgerRects[i], Color.White); //CRASHES??
+                    _spriteBatch.Draw(badgerTextures[i], badgerRects[i], Color.White); 
                 }
-                _spriteBatch.DrawString(0);
+                _spriteBatch.DrawString(scoreFont, $"Score: {score}", new Vector2(650, 10), Color.Crimson);
 
             }
+
+            else if (screenState == ScreenState.EndScreen)
+            {
+                _spriteBatch.Draw(endBackgroundTexture, window, Color.White);
+
+            }
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
