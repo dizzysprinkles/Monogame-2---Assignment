@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection.Emit;
 
@@ -28,6 +29,7 @@ namespace Monogame_2___Assignment
         List<Rectangle> badgerRects;
         Random generator;
         float seconds, respawnTime;
+        int score;
 
 
         Rectangle window;
@@ -43,6 +45,8 @@ namespace Monogame_2___Assignment
         {
             screenState = ScreenState.TitleScreen;
             generator = new Random();
+
+            score = 0;
 
             mushroomLoad = new List<Texture2D>();
             badgerRects = new List<Rectangle>();
@@ -105,6 +109,7 @@ namespace Monogame_2___Assignment
                 if (seconds > respawnTime)
                 {
                     mushroomTextures.Add(mushroomLoad[generator.Next(mushroomLoad.Count)]);
+                    badgerTextures.Add(badgerTexture);
                     badgerRects.Add(new Rectangle(generator.Next(window.Width - 10), generator.Next(250, 350), 100, 100));
                     seconds = 0f; // Restarts timer
                 }
@@ -115,8 +120,10 @@ namespace Monogame_2___Assignment
                         if (badgerRects[i].Contains(mouseState.Position))
                         {
                             badgerTextures[i] = mushroomTextures[i];
-            
+                            score += 10;
+
                         }
+
                     }
                 }
             }
@@ -140,8 +147,9 @@ namespace Monogame_2___Assignment
 
                 for (int i = 0; i < badgerRects.Count; i++)
                 {
-                    _spriteBatch.Draw(badgerTextures[i], badgerRects[i], Color.White); //CRASHES WHEN CLICKING BADGER
+                    _spriteBatch.Draw(badgerTextures[i], badgerRects[i], Color.White); //CRASHES??
                 }
+                _spriteBatch.DrawString(0);
 
             }
             _spriteBatch.End();
