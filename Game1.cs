@@ -143,9 +143,7 @@ namespace Monogame_2___Assignment
                                 i--;
 
                             }
-
                         }
-
                     }
                 }
 
@@ -156,10 +154,10 @@ namespace Monogame_2___Assignment
             }
             else if (screenState == ScreenState.EndScreen)
             {
-                score = 0;
-
-
-                
+                if (keyboardState.IsKeyDown(Keys.Enter))
+                {
+                    Exit();
+                }
             }
 
             previousMouseState = mouseState;
@@ -191,7 +189,7 @@ namespace Monogame_2___Assignment
             else if (screenState == ScreenState.EndScreen)
             {
                 _spriteBatch.Draw(endBackgroundTexture, window, Color.White);
-
+                _spriteBatch.DrawString(instructionFont, "You won! Woop! I should be in a \nvariable instead of hard coded", new Vector2(100, 50), Color.Cyan);
             }
 
             _spriteBatch.End();
