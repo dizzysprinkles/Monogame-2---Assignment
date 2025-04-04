@@ -3,9 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Reflection.Emit;
+
 
 namespace Monogame_2___Assignment
 {
@@ -185,7 +183,7 @@ namespace Monogame_2___Assignment
                     }
                 }
 
-                if (score >= 500)  
+                if (score >= 300)  
                 {
                     screenState = ScreenState.EndScreen;
                 }
@@ -208,7 +206,7 @@ namespace Monogame_2___Assignment
             {
                 _spriteBatch.Draw(titleBackgroundTexture, window, Color.White);
                 _spriteBatch.DrawString(instructionFont, "Welcome to Badger Mushroom Clicker! \n\n In this game, you will need to click each badger, \nwhich will then turn into a mushroom, and \n then you click the mushrooms to get \nrid of them!", new Vector2(10, 50), Color.DarkBlue);
-                _spriteBatch.DrawString(instructionFont, "Mushroom - 20pts \n Badger - 10pts\n                       Get 500 points to win!", new Vector2(10, 300), Color.DarkSlateBlue);
+                _spriteBatch.DrawString(instructionFont, "Mushroom - 20pts \n Badger - 10pts\n                       Get 300 points to win!", new Vector2(10, 300), Color.DarkSlateBlue);
                 _spriteBatch.DrawString(instructionFont, "Press ENTER to continue", new Vector2(225, 425), Color.Brown);
                 _spriteBatch.DrawString(scoreFont, "By Zoey Hamm", new Vector2(300, 450), Color.Brown);
             }
