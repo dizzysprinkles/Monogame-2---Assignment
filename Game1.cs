@@ -79,6 +79,7 @@ namespace Monogame_2___Assignment
 
             instructionFont = Content.Load<SpriteFont>("Fonts/InstructionFont");
             scoreFont = Content.Load<SpriteFont>("Fonts/ScoreFont");
+
             titleBackgroundTexture = Content.Load<Texture2D>("Images/greenBackground");
             fieldBackgroundTexture = Content.Load<Texture2D>("Images/fieldBackground");
             badgerTexture = Content.Load<Texture2D>("Images/badger");
@@ -108,8 +109,6 @@ namespace Monogame_2___Assignment
             {
                 colors.Add(colorLoad[generator.Next(colorLoad.Count)]);
             }
-          
-
         }
 
         protected override void Update(GameTime gameTime)
