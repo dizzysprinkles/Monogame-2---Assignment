@@ -111,9 +111,9 @@ namespace Monogame_2___Assignment
             }
             else if (screenState == ScreenState.MainScreen)
             {
-                if (seconds > respawnTime && badgerRects.Count < 6)
+                if (seconds > respawnTime && badgerRects.Count < 5)
                 {
-                    // Intersection Check Lop
+                    // Intersection Check Loop
                     bool overlapping;
                     do
                     {
@@ -149,12 +149,12 @@ namespace Monogame_2___Assignment
                             if (clicks % 2 != 0)
                             {
                                 badgerTextures[i] = mushroomTextures[i];
-                                score += 10;  //NEED TO CHANGE SCORE AMOUNT
+                                score += 10;  
                             }
                             //Removes
                             else if (clicks % 2 == 0)
                             {
-                                score += 20; //NEED TO CHANGE SCORE AMOUNT
+                                score += 20; 
                                 badgerTextures.RemoveAt(i);
                                 badgerRects.RemoveAt(i);
                                 mushroomTextures.RemoveAt(i);
@@ -165,7 +165,7 @@ namespace Monogame_2___Assignment
                     }
                 }
 
-                if (score >= 1000)  // NEED TO CHANGE ENDING CONDITION
+                if (score >= 500)  
                 {
                     screenState = ScreenState.EndScreen;
                 }
@@ -188,8 +188,8 @@ namespace Monogame_2___Assignment
             if (screenState == ScreenState.TitleScreen)
             {
                 _spriteBatch.Draw(titleBackgroundTexture, window, Color.White);
-                _spriteBatch.DrawString(instructionFont, "Need to put actual instructions \nhere... Testing...", new Vector2(100, 50), Color.DarkBlue);
-                _spriteBatch.DrawString(instructionFont, "Press ENTER to continue", new Vector2(150, 400), Color.Brown);
+                _spriteBatch.DrawString(instructionFont, "Welcome to Badger Mushroom Clicker! \n\n In this game, you will need to click each badger, \nwhich will then turn into a mushroom, and \n then you click the mushrooms to get \nrid of them! \n\n Mushroom - 20pts \n Badger - 10pts \n                         Get 500 points to win!", new Vector2(10, 50), Color.DarkBlue);
+                _spriteBatch.DrawString(instructionFont, "Press ENTER to continue", new Vector2(250, 425), Color.Brown);
                 _spriteBatch.DrawString(scoreFont, "By Zoey Hamm", new Vector2(300, 450), Color.Indigo);
             }
             else if (screenState == ScreenState.MainScreen)
