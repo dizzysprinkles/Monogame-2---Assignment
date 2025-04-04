@@ -226,7 +226,7 @@ namespace Monogame_2___Assignment
             else if (screenState == ScreenState.EndScreen)
             {
                 _spriteBatch.Draw(endBackgroundTexture, window, Color.White);
-                _spriteBatch.DrawString(instructionFont, $"You won! You clicked {clicks} times. \nYou score {score} points in total!\n\nPress ENTER to quit!", new Vector2(300, 275), Color.Black);
+                _spriteBatch.DrawString(instructionFont, $"You won! You clicked {clicks} times. \nYou score {score} points in total!\n\nPress ENTER to quit.", new Vector2(300, 275), Color.Black);
             }
 
             _spriteBatch.End();
