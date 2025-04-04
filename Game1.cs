@@ -126,7 +126,6 @@ namespace Monogame_2___Assignment
                 {
                     screenState = ScreenState.MainScreen;
                 }
-
             }
             else if (screenState == ScreenState.MainScreen)
             {
