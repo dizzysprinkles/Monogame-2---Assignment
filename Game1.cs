@@ -27,6 +27,7 @@ namespace Monogame_2___Assignment
         KeyboardState keyboardState;
         List<Texture2D> mushroomLoad, mushroomTextures, badgerTextures;
         List<Rectangle> badgerRects;
+        List<Color> colors, colorLoad;
         Random generator;
         float seconds, respawnTime;
         int score, clicks;
@@ -55,6 +56,8 @@ namespace Monogame_2___Assignment
             badgerRects = new List<Rectangle>();
             mushroomTextures = new List<Texture2D>();
             badgerTextures = new List<Texture2D>();
+            colors = new List<Color>();
+            colorLoad = new List<Color>();
 
             window = new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             for (int i = 0; i < 1; i++)
@@ -62,6 +65,7 @@ namespace Monogame_2___Assignment
                 badgerRects.Add(new Rectangle(generator.Next(window.Width - 100), generator.Next(250, 350), 100, 100)); //Need to check for collision with other rectangles...
                 
             }
+
             respawnTime = 2.5f;
             seconds = 0f;
             base.Initialize();
@@ -76,7 +80,7 @@ namespace Monogame_2___Assignment
             titleBackgroundTexture = Content.Load<Texture2D>("Images/greenBackground");
             fieldBackgroundTexture = Content.Load<Texture2D>("Images/fieldBackground");
             badgerTexture = Content.Load<Texture2D>("Images/badger");
-            endBackgroundTexture = Content.Load<Texture2D>("Images/grayBackground");
+            endBackgroundTexture = Content.Load<Texture2D>("Images/treeBackground");
 
 
             for (int i = 0; i < badgerRects.Count; i++)
@@ -89,6 +93,20 @@ namespace Monogame_2___Assignment
 
             for (int i = 0; i < badgerRects.Count; i++)
                 mushroomTextures.Add(mushroomLoad[generator.Next(mushroomLoad.Count)]);
+
+            colorLoad.Add(Color.Aquamarine);
+            colorLoad.Add(Color.PapayaWhip); 
+            colorLoad.Add(Color.LightYellow);
+            colorLoad.Add(Color.White);
+            colorLoad.Add(Color.LavenderBlush);
+            colorLoad.Add(Color.Orchid);
+            colorLoad.Add(Color.MediumPurple);
+
+            for (int i = 0; i < badgerRects.Count; i++)
+            {
+                colors.Add(colorLoad[generator.Next(colorLoad.Count)]);
+            }
+          
 
         }
 
@@ -117,6 +135,7 @@ namespace Monogame_2___Assignment
                     bool overlapping;
                     do
                     {
+                        colors.Add(colorLoad[generator.Next(colorLoad.Count)]);
                         mushroomTextures.Add(mushroomLoad[generator.Next(mushroomLoad.Count)]);
                         badgerTextures.Add(badgerTexture);
                         newRect = new Rectangle(generator.Next(window.Width - 100), generator.Next(250, 350), 100, 100);
@@ -158,6 +177,7 @@ namespace Monogame_2___Assignment
                                 badgerTextures.RemoveAt(i);
                                 badgerRects.RemoveAt(i);
                                 mushroomTextures.RemoveAt(i);
+                                colors.RemoveAt(i);
                                 i--;
 
                             }
@@ -188,7 +208,8 @@ namespace Monogame_2___Assignment
             if (screenState == ScreenState.TitleScreen)
             {
                 _spriteBatch.Draw(titleBackgroundTexture, window, Color.White);
-                _spriteBatch.DrawString(instructionFont, "Welcome to Badger Mushroom Clicker! \n\n In this game, you will need to click each badger, \nwhich will then turn into a mushroom, and \n then you click the mushrooms to get \nrid of them! \n\n Mushroom - 20pts \n Badger - 10pts \n                         Get 500 points to win!", new Vector2(10, 50), Color.DarkBlue);
+                _spriteBatch.DrawString(instructionFont, "Welcome to Badger Mushroom Clicker! \n\n In this game, you will need to click each badger, \nwhich will then turn into a mushroom, and \n then you click the mushrooms to get \nrid of them!", new Vector2(10, 50), Color.DarkBlue);
+                _spriteBatch.DrawString(instructionFont, "Mushroom - 20pts \n Badger - 10pts\n                         Get 500 points to win!", new Vector2(10, 300), Color.DarkSlateBlue);
                 _spriteBatch.DrawString(instructionFont, "Press ENTER to continue", new Vector2(250, 425), Color.Brown);
                 _spriteBatch.DrawString(scoreFont, "By Zoey Hamm", new Vector2(300, 450), Color.Indigo);
             }
@@ -198,7 +219,7 @@ namespace Monogame_2___Assignment
 
                 for (int i = 0; i < badgerRects.Count; i++)
                 {
-                    _spriteBatch.Draw(badgerTextures[i], badgerRects[i], Color.White); 
+                    _spriteBatch.Draw(badgerTextures[i], badgerRects[i], colors[i]); 
                 }
                 _spriteBatch.DrawString(scoreFont, $"Score: {score}", new Vector2(650, 10), Color.Crimson);
 
@@ -207,7 +228,7 @@ namespace Monogame_2___Assignment
             else if (screenState == ScreenState.EndScreen)
             {
                 _spriteBatch.Draw(endBackgroundTexture, window, Color.White);
-                _spriteBatch.DrawString(instructionFont, "You won! Woop! I should be in a \nvariable instead of hard coded", new Vector2(100, 50), Color.Cyan);
+                _spriteBatch.DrawString(instructionFont, $"You won! You clicked {clicks} times. \n You score {score} points in total!", new Vector2(300, 275), Color.Black);
             }
 
             _spriteBatch.End();
