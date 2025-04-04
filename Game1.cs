@@ -32,7 +32,7 @@ namespace Monogame_2___Assignment
         int score, clicks;
 
 
-        Rectangle window;
+        Rectangle window, newRect;
         Texture2D titleBackgroundTexture, fieldBackgroundTexture, badgerTexture, endBackgroundTexture;
 
 
@@ -111,11 +111,29 @@ namespace Monogame_2___Assignment
             }
             else if (screenState == ScreenState.MainScreen)
             {
-                if (seconds > respawnTime)
+                if (seconds > respawnTime && badgerRects.Count < 6)
                 {
-                    mushroomTextures.Add(mushroomLoad[generator.Next(mushroomLoad.Count)]);
-                    badgerTextures.Add(badgerTexture);
-                    badgerRects.Add(new Rectangle(generator.Next(window.Width - 100), generator.Next(250, 350), 100, 100));
+                    // Intersection Check Lop
+                    bool overlapping;
+                    do
+                    {
+                        mushroomTextures.Add(mushroomLoad[generator.Next(mushroomLoad.Count)]);
+                        badgerTextures.Add(badgerTexture);
+                        newRect = new Rectangle(generator.Next(window.Width - 100), generator.Next(250, 350), 100, 100);
+
+                        overlapping = false;
+
+                        foreach (Rectangle rect in badgerRects)
+                        {
+                            if (newRect.Intersects(rect))
+                            {
+                                overlapping = true;
+                            }
+                        }
+                    } while (overlapping);
+
+                    badgerRects.Add(newRect);
+                   
                     seconds = 0f; // Restarts timer
                 }
                 if (mouseState.LeftButton == ButtonState.Pressed && previousMouseState.LeftButton == ButtonState.Released)
@@ -147,7 +165,7 @@ namespace Monogame_2___Assignment
                     }
                 }
 
-                if (score >= 100)  // NEED TO CHANGE ENDING CONDITION
+                if (score >= 1000)  // NEED TO CHANGE ENDING CONDITION
                 {
                     screenState = ScreenState.EndScreen;
                 }
