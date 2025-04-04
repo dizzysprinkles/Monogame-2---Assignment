@@ -22,12 +22,13 @@ namespace Monogame_2___Assignment
         private SpriteBatch _spriteBatch;
 
         ScreenState screenState;
-        SpriteFont instructionFont, scoreFont;
         MouseState mouseState, previousMouseState;
         KeyboardState keyboardState;
+
         List<Texture2D> mushroomLoad, mushroomTextures, badgerTextures;
         List<Rectangle> badgerRects;
         List<Color> colors, colorLoad;
+
         Random generator;
         float seconds, respawnTime;
         int score, clicks;
@@ -35,6 +36,7 @@ namespace Monogame_2___Assignment
 
         Rectangle window, newRect;
         Texture2D titleBackgroundTexture, fieldBackgroundTexture, badgerTexture, endBackgroundTexture;
+        SpriteFont instructionFont, scoreFont;
 
 
         public Game1()
@@ -62,7 +64,7 @@ namespace Monogame_2___Assignment
             window = new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             for (int i = 0; i < 1; i++)
             {
-                badgerRects.Add(new Rectangle(generator.Next(window.Width - 100), generator.Next(250, 350), 100, 100)); //Need to check for collision with other rectangles...
+                badgerRects.Add(new Rectangle(generator.Next(window.Width - 100), generator.Next(250, 350), 100, 100));
                 
             }
 
