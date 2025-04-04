@@ -197,7 +197,6 @@ namespace Monogame_2___Assignment
                     Exit();
                 }
             }
-
             previousMouseState = mouseState;
             base.Update(gameTime);
         }
@@ -222,13 +221,12 @@ namespace Monogame_2___Assignment
                     _spriteBatch.Draw(badgerTextures[i], badgerRects[i], colors[i]); 
                 }
                 _spriteBatch.DrawString(scoreFont, $"Score: {score}", new Vector2(650, 10), Color.Crimson);
-
             }
 
             else if (screenState == ScreenState.EndScreen)
             {
                 _spriteBatch.Draw(endBackgroundTexture, window, Color.White);
-                _spriteBatch.DrawString(instructionFont, $"You won! You clicked {clicks} times. \n You score {score} points in total!", new Vector2(300, 275), Color.Black);
+                _spriteBatch.DrawString(instructionFont, $"You won! You clicked {clicks} times. \nYou score {score} points in total!\n\nPress ENTER to quit!", new Vector2(300, 275), Color.Black);
             }
 
             _spriteBatch.End();
